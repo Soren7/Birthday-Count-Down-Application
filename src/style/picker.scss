@@ -1,11 +1,12 @@
 .picker {
     grid-column: 5/10;
-    grid-row: 2/4;
+    grid-row: 2/3;
     font-size: 80px;
     font-family: "Roboto Condensed";
     font-weight: bold;
     color: $color-grey-one;
     padding-bottom: 50px;
+    justify-self: center;
     
     
     input {

@@ -31,6 +31,7 @@ export default class App extends Component {
   
   handleChange = function(date) {
         console.log('trying to change data for', date._d);
+        clearInterval(this.timer);
         this.setState({
         startDate: date
     });

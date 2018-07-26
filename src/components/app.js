@@ -13,8 +13,6 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     
-    var timer = 0;
-    
     this.timer = 0;
     
     this.state = {
@@ -44,34 +42,32 @@ export default class App extends Component {
 
       var countDownDate = this.state.startDate.toDate().getTime();
     
-      timer = setInterval(function() {
+      this.timer = setInterval(function() {
       
-      var now = new Date().getTime();
+        var now = new Date().getTime();
       
-      var distance = countDownDate - now;
+        var distance = countDownDate - now;
       
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
       
-      const time = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-      const timeRemaining =  {
+        const time = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        const timeRemaining =  {
           days,
           hours,
           minutes, 
           seconds
-        }
-        
-     this.setState({ active: true });
-     
-      console.log(this.state.timeRemaining);
+          }
+          
+     this.setState({ timeRemaining});
       
       if (distance < 0) {
-        clearInterval(x);
+        clearInterval(this.timer);
       }
       // you left off putting in all of the variables right here
-    }, 1000);
+    }.bind(this), 1000);
     
   }.bind(this)
   
@@ -79,7 +75,7 @@ export default class App extends Component {
   renderItems = function() {
     if (this.state.active) {
       return [
-        <Clock/>,
+        <Clock timeRemaining={this.state.timeRemaining}/>,
         ChangeDate('Change Date', () => this.setState({ active: false })),
         LargeText('04/03'),
         <lable className="grid__remaining"> Remaining until your 15th Birthday</lable>
